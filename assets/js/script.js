@@ -20,24 +20,55 @@ var firebaseConfig = {
     });
   }
  var count=0;
+ firebase.database().ref("users").once("value").then(function(snapshot) {
+    count = snapshot.numChildren();
+    for(let i=1;i<=count;i++){
+        parseDB("player"+i);
+     }
+  });
 
-  
   $("#startButton").on('click',function(event){
     event.preventDefault();
     count++;
     var name = $(".username").val();
     var title = $("<h5>").text(name);
-    $(".player"+count).html(title);
+ 
     firebase.database().ref("users").once("value").then(function(snapshot) {
         count = snapshot.numChildren();
       });
- 
-      if(count<=2 && name !==''){
-    writeUserData("player"+count,name);
 
-      }
-      else{
-          console.log("only 2 users can join at atime")
-      }
+
  
+     if(count<=2){
+          if( name !==''){
+          writeUserData("player"+count,name);
+      }
+      if (count===2){
+
+        $(".battle").text("select rock, paper, scissor");
+        $(".userNameInput").css("display","none");
+      }
+    }
+  
+
+    parseDB("player"+count);
+   
+
   })
+if (sessionStorage.getItem("is_reloaded")) {
+    alert ("reloaded");
+    firebase.database().ref("users").remove();
+}
+
+sessionStorage.setItem("is_reloaded", true);
+
+function parseDB(playerID){
+    console.log("users/"+playerID);
+    var userName = firebase.database().ref("users/"+playerID).once("value").then(function(snapshot) {
+        console.log(snapshot.child("username").val());
+        var uname = snapshot.child("username").val();
+        $("."+playerID).text(uname);
+    
+      }); 
+  }
+
