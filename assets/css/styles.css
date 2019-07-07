@@ -1,9 +1,12 @@
-
+*{
+    margin: 0em;
+    padding: 0em;
+}
 .body-chat {
   margin: 0 auto;
   max-width: 800px;
-  padding: 0 20px;
-  height: 300px;
+  padding: 0 10px;
+
   overflow: scroll;
 }
 
@@ -11,8 +14,8 @@
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+
+  margin: 5px 0;
 }
 
 .darker {
@@ -28,16 +31,17 @@
 
 .container-chat img {
   float: left;
-  max-width: 40px;
+  max-width: 20px;
   width: 100%;
-  margin-right: 20px;
+  margin-right: 10px;
   border-radius: 50%;
  
 }
 
+
 .container-chat img.right {
   float: right;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right:0;
   size: 50%;
 }
@@ -50,4 +54,35 @@
 .time-left {
   float: left;
   color: #999;
+}
+.jumbotron{
+    margin: 1em;
+    text-align: center;
+}
+
+p{
+    margin: 0;
+}
+.message-input{
+    border: 2px solid #dedede;
+    margin: 0 auto;
+    border-radius: 5px;
+    width: 720px;
+    max-width: 100%;
+}
+.message{
+    margin: 0 auto;
+    width: 800px;
+    padding-left:0.5em; 
+    max-width: 100%;
+}
+#send{
+    padding: 0.1em 0.7em;
+    border-radius: 5px;
+}
+
+.userNameInput{
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
 }

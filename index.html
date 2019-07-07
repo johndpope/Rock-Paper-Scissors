@@ -3,36 +3,51 @@
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body>
+        <header>
+            <div class="jumbotron ">
+                <div class="container">
+                    <h1 class="display-4">Rock-Paper-Scissor challange</h1>
+                    </div>
+                </div>
+            <div>
+        </header>
+        <section>
+            <div class="userNameInput input-group mb-3">
+                <input type="text" maxlength="18" class="form-control" placeholder="Username" aria-label="Username">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">Start</button>
+                </div>
+            </div>
+
+        </section>
+        
         <div class = 'body-chat'>
                 <h5>Chat Messages</h5>
 
                 <div class="container-chat">
                   <img src="assets/images/user1.png" alt="Avatar" style="width:100%;">
-                  <p>Hello. How are you today?</p>
-                  <span class="time-right">11:00</span>
+                  <p>user2: Hello. How are you today?  <span class="time-right">11:00</span></p>
+    
                 </div>
                 
                 <div class="container-chat darker">
-                  <img src="assets/images/user2.png" alt="Avatar" class="right" style="width:100%;">
-                  <p>Hey! I'm fine. Thanks for asking!</p>
-                  <span class="time-left">11:01</span>
+                  <img src="assets/images/user2.png" alt="Avatar" style="width:100%;">
+                  <p> user1: Hey! I'm fine. Thanks for asking!<span class="time-right">11:01</span></p>
                 </div>
                 <div class="container-chat">
                         <img src="assets/images/user1.png" alt="Avatar" style="width:100%;">
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                      </div>
-                      
-                      <div class="container-chat darker">
-                        <img src="assets/images/user2.png" alt="Avatar" class="right" style="width:100%;">
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                      </div>    
-                
+                        <p>user2: Hello. How are you todayvbdv dbvjdbnf fjsngksdgd gdbngkdgld sgjbsngks bgdkgjkdm ghafkja fjjakgla abngkjlga; ffghuijk ? <span class="time-right">11:00</span></p>
+        
+                </div>
+            </div>
+            <div class="message">
+                <input type="text-area" class="message-input" placeholder="enter message here"></input>
+                <button class = "btn-primary" id ="send">Send</button>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
