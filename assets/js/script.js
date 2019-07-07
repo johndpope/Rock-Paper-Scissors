@@ -11,3 +11,14 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
   var database = firebase.database();
+
+  function writeUserData(userId, name) {
+    database.ref('users/' + userId).set({
+      username: name,
+      wins:0,
+      losses:0
+    });
+  }
+
+  writeUserData("player1","Kostya");
+  writeUserData("player2","Nata");
