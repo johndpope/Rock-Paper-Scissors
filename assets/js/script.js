@@ -20,11 +20,17 @@ var firebaseConfig = {
     });
   }
  var count=0;
+
  firebase.database().ref("users").once("value").then(function(snapshot) {
     count = snapshot.numChildren();
     for(let i=1;i<=count;i++){
         parseDB("player"+i);
      }
+     if (count===2){
+
+        $(".battle").text("select rock, paper, scissor");
+        $(".userNameInput").css("display","none");
+      }
   });
 
   $("#startButton").on('click',function(event){
@@ -68,7 +74,7 @@ function parseDB(playerID){
         console.log(snapshot.child("username").val());
         var uname = snapshot.child("username").val();
         $("."+playerID).text(uname);
-    
+
       }); 
   }
 
