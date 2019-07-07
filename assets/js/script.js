@@ -19,6 +19,25 @@ var firebaseConfig = {
       losses:0
     });
   }
+ var count=0;
 
-  writeUserData("player1","Kostya");
-  writeUserData("player2","Nata");
+  
+  $("#startButton").on('click',function(event){
+    event.preventDefault();
+    count++;
+    var name = $(".username").val();
+    var title = $("<h5>").text(name);
+    $(".player"+count).html(title);
+    firebase.database().ref("users").once("value").then(function(snapshot) {
+        count = snapshot.numChildren();
+      });
+ 
+      if(count<=2 && name !==''){
+    writeUserData("player"+count,name);
+
+      }
+      else{
+          console.log("only 2 users can join at atime")
+      }
+ 
+  })
