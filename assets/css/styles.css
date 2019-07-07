@@ -9,6 +9,12 @@
 
   overflow: scroll;
 }
+.game-zone{
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    height: 200px;
+}
 
 .container-chat {
   border: 2px solid #dedede;
@@ -56,8 +62,10 @@
   color: #999;
 }
 .jumbotron{
+    padding: 0.5em;
     margin: 1em;
     text-align: center;
+    height: 100%;
 }
 
 p{
@@ -85,4 +93,11 @@ p{
     width: 300px;
     max-width: 100%;
     margin: 0 auto;
+}
+.col-3{
+    border: solid 0.1em grey;
+    margin: 1em;
+    padding: 1em;
+    max-height: 100%;
+
 }
