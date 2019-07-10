@@ -170,7 +170,7 @@ $(".battleStart").on('click',function(event){
      if(count<=2){
           if( name !==''){
           writeUserData("player"+count,name);
-          //(".username").attr('readonly');
+              $("#startButton").prop("disabled",true);
       }
 
     }
@@ -214,6 +214,7 @@ function parseDB(playerID){
     firebase.database().ref("users/player1").child("choice").set(user1Selection);
     usersPlayed++;
 
+
     
 }}
 
@@ -229,13 +230,14 @@ $(document).on("click",".button2",function() {
     firebase.database().ref("users/player2").child("choice").set(user2Selection);
     usersPlayed++;
 
+
     
 }}
 });
 
 function resetSelection(){
     firebase.database().ref("users").once("value").then(function(snapshot) {
-    $(".battletitle").text("select rock, paper, scissor");
+//    $(".battletitle").text("select rock, paper, scissor");
         if ($(".username").val()===snapshot.child("player1/username").val()){
 
             firebase.database().ref("users/player1/played").set(false);
