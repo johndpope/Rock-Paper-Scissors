@@ -205,6 +205,8 @@ function parseDB(playerID){
   
   $(document).on("click",".button1", function() {
       console.log("do I get here???");
+
+   if ($(".username").val() === $("#player1").text()){
    if(user1Selection==="" ){
     var fired_button = $(this).attr("id");
     user1Selection = fired_button;
@@ -213,12 +215,13 @@ function parseDB(playerID){
     usersPlayed++;
 
     
-}
+}}
 
 });
 
 $(document).on("click",".button2",function() {
     console.log("do I get here???");
+    if ($(".username").val() === $("#player2").text()) {
     if(user2Selection==="" ){
     var fired_button = $(this).attr("id");
     user2Selection = fired_button;
@@ -227,7 +230,7 @@ $(document).on("click",".button2",function() {
     usersPlayed++;
 
     
-}
+}}
 });
 
 function resetSelection(){
