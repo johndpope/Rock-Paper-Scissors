@@ -1,3 +1,5 @@
+firebase.database().ref("users").remove();
+
 var firebaseConfig = {
     apiKey: "AIzaSyC0kpxe63TnL4vvgCNno30pJ_W6wLn3FB0",
     authDomain: "rock-paper-scissors-challange.firebaseapp.com",
@@ -188,7 +190,7 @@ $(".battleStart").on('click',function(event){
   })
   
 if (sessionStorage.getItem("is_reloaded")) {
-    alert ("reloaded");
+    //alert ("reloaded");
     firebase.database().ref("users").remove();
 }
 
