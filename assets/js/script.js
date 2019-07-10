@@ -33,6 +33,7 @@ var firebaseConfig = {
  parseDB("player"+count);
 
  var timer= setInterval(updateData, 100);
+
  
  function updateData(){
 
@@ -80,11 +81,9 @@ var firebaseConfig = {
                             firebase.database().ref("users/player2").child("played").set(true);
                             $(".battletitle").text(user2Name+ " wins!!");
                         }
-                    }else{
-                        resetSelection();
-                    }
-                    if(snapshot.child("player1/played").val()===false || snapshot.child("player2/played").val()===false){
-                        if(user1SelectionDatabase==='paper' && user2SelectionDatabase==="rock"){
+
+
+                        else if(user1SelectionDatabase==='paper' && user2SelectionDatabase==="rock"){
                             user2LossesDatabase++;
                             user1WinsDatabase++
                             firebase.database().ref("users/player1").child("wins").set(user1WinsDatabase);
@@ -93,11 +92,8 @@ var firebaseConfig = {
                             firebase.database().ref("users/player1").child("played").set(true);
                             firebase.database().ref("users/player2").child("played").set(true);
                         }
-                    }else{
-                    resetSelection();
-                    }
-                    if(snapshot.child("player1/played").val()===false || snapshot.child("player2/played").val()===false){
-                        if(user1SelectionDatabase==='rock' && user2SelectionDatabase==="paper"){
+
+                        else if(user1SelectionDatabase==='rock' && user2SelectionDatabase==="paper"){
                             user1LossesDatabase++;
                             user2WinsDatabase++
                             firebase.database().ref("users/player1").child("losses").set(user1LossesDatabase);
@@ -106,11 +102,8 @@ var firebaseConfig = {
                             firebase.database().ref("users/player1").child("played").set(true);
                             firebase.database().ref("users/player2").child("played").set(true);
                         }
-                    }else{
-                        resetSelection();
-                    }
-                    if(snapshot.child("player1/played").val()===false || snapshot.child("player2/played").val()===false){
-                        if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="paper"){
+
+                        else if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="paper"){
                     
                             user1WinsDatabase++;
                             user2LossesDatabase++
@@ -120,11 +113,8 @@ var firebaseConfig = {
                             firebase.database().ref("users/player1").child("played").set(true);
                             firebase.database().ref("users/player2").child("played").set(true);
                         }
-                    }else{
-                        resetSelection();
-                    }
-                    if(snapshot.child("player1/played").val()===false || snapshot.child("player2/played").val()===false){
-                        if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="rock"){
+
+                        else if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="rock"){
                             user1LossesDatabase++;
                             user2WinsDatabase++
                             firebase.database().ref("users/player1").child("losses").set(user1LossesDatabase);
@@ -133,10 +123,7 @@ var firebaseConfig = {
                             firebase.database().ref("users/player1").child("played").set(true);
                             firebase.database().ref("users/player2").child("played").set(true);
                         }
-                    }else{
-                        resetSelection();
-                    }
-                    if(snapshot.child("player1/played").val()===false || snapshot.child("player2/played").val()===false){
+
                         if(user1SelectionDatabase==='rock' && user2SelectionDatabase==="scissors"){
                             user1WinsDatabase++;
                             user2LossesDatabase++
@@ -146,15 +133,18 @@ var firebaseConfig = {
                             firebase.database().ref("users/player1").child("played").set(true);
                             firebase.database().ref("users/player2").child("played").set(true);
                         }
-                    }else{
-                        resetSelection();
-                    }
                    // clearInterval(timer);
                 }
+               /* else{
+                            firebase.database().ref("users/player1/choice").set("");
+                            user1Selection="";
+                            firebase.database().ref("users/player2/choice").set("");
+                            user2Selection="";
+                }*/
            // clearInterval(timer);
             }
         }
-
+}
      
     });
 }
@@ -215,7 +205,7 @@ function parseDB(playerID){
   
   $(document).on("click",".button1", function() {
       console.log("do I get here???");
-   if(user1Selection===""){
+   if(user1Selection==="" ){
     var fired_button = $(this).attr("id");
     user1Selection = fired_button;
    
@@ -232,8 +222,9 @@ $(document).on("click",".button2",function() {
     if(user2Selection==="" ){
     var fired_button = $(this).attr("id");
     user2Selection = fired_button;
-   usersPlayed++
+
     firebase.database().ref("users/player2").child("choice").set(user2Selection);
+    usersPlayed++;
 
     
 }
@@ -244,22 +235,22 @@ function resetSelection(){
     $(".battletitle").text("select rock, paper, scissor");
         if ($(".username").val()===snapshot.child("player1/username").val()){
 
+            firebase.database().ref("users/player1/played").set(false);
             firebase.database().ref("users/player1/choice").set("");
             user1Selection="";
 
-            usersPlayed=0;
-            firebase.database().ref("users/player1/played").set(false);
 
         }
         if ($(".username").val()===snapshot.child("player2/username").val()){
   
-            firebase.database().ref("users/player2/choice").set("");
-        
-            user2Selection="";
-            usersPlayed=0;
+
+
 
             firebase.database().ref("users/player2/played").set(false);
+                                                    firebase.database().ref("users/player2/choice").set("");
+                                                                                user2Selection="";
         }
+        usersPlayed=0;
 } );  
 }
 
