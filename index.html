@@ -31,12 +31,15 @@
                             <button id="rock" class ="icon button1"> Rock </button> 
                             <button id="scissors" class ="icon button1" > Scissors </button>
                         </div>
-
+                        <div>
+                        <p> Wins: <span class=winsplayer1></span></p>
+                        <p> Losses: <span class=lossesplayer1></span></p>
+                        </div>
                     </div>
 
                     <div class="col-3 battle">
-                        Game not started
-                        
+                        <p class = "battletitle">Game not started</p>
+                        <button class ="icon battleStart"> Start battle </button>
                     </div>
                     <div class="col-3 player2">
                         <p id="player2">Waiting for player 2</p>
@@ -44,6 +47,10 @@
                                 <button id="paper" class ="icon button2"> Paper </button>
                                 <button id="rock" class ="icon button2"> Rock </button> 
                                 <button id="scissors" class ="icon button2" > Scissors </button>
+                        </div>
+                        <div>
+                        <p> Wins: <span class=winsplayer2></span></p>
+                        <p> Losses: <span class=lossesplayer2></span></p>
                         </div>
                     </div>
 
@@ -54,7 +61,7 @@
 
         </section>
         
-        <div class = 'body-chat'>
+       <!-- <div class = 'body-chat'>
                 <h5>Chat Messages</h5>
 
                 <div class="container-chat">
@@ -76,7 +83,7 @@
             <div class="message">
                 <input type="text-area" class="message-input" placeholder="enter message here"></input>
                 <button class = "btn-primary" id ="send">Send</button>
-            </div>
+            </div> -->
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
