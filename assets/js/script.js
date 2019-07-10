@@ -1,4 +1,4 @@
-firebase.database().ref("users").remove();
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyC0kpxe63TnL4vvgCNno30pJ_W6wLn3FB0",
@@ -262,3 +262,7 @@ function resetSelection(){
         }
 } );  
 }
+
+window.onbeforeunload = function () {
+    firebase.database().ref("users").remove();
+};
