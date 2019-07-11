@@ -57,6 +57,8 @@ var firebaseConfig = {
         var user2WinsDatabase = snapshot.child("player2/wins").val();
         var user1LossesDatabase = snapshot.child("player1/losses").val();
         var user2LossesDatabase = snapshot.child("player2/losses").val();
+
+    if(snapshot.child("player1/played").val()===false && snapshot.child("player2/played").val()===false){
         if(user1SelectionDatabase !==null && user2SelectionDatabase!==null){
             console.log(user1SelectionDatabase);
             console.log(user2SelectionDatabase);
@@ -143,7 +145,7 @@ var firebaseConfig = {
             }
         }
 
-     
+    }
     });
  }
 
@@ -169,6 +171,8 @@ var firebaseConfig = {
           if( name !==''){
             writeUserData("player"+count,name);
             $("#startButton").prop("disabled",true);
+            $(".username").prop("disabled",true);
+
       }
 
     }
