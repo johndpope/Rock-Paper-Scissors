@@ -339,17 +339,23 @@ if (whoLeft!==""){
   });
 }
 
+lastOpponentMsg = "";
 
 function readMessageFromDB(){
   firebase.database().ref("users").once("value").then(function(snapshot) {
     count = snapshot.numChildren();
 
     for(let i=1;i<=count;i++){
+      
       if($(".username").val() !== snapshot.child("player"+i+"/username").val()){
         var message = snapshot.child("player"+i+"/message").val();
         var messagePar = $("<p>").text(message);
-        if($( "div span:last-child" )!== message){
-        $(".container-chat").append(messagePar);
+        console.log($( "div.container-chat p:last-child" ).text());
+        console.log(message);
+        console.log( $( "div.container-chat p:last-child" ).text()!== message );
+        if(lastOpponentMsg!== message){
+           $(".container-chat").append(messagePar);
+           lastOpponentMsg = message;
         }
 
       }
