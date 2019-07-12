@@ -294,8 +294,8 @@ $("#send").on("click",function(event){
 
     if ($(".username").val() === $("#player2").text()){
       firebase.database().ref("users/player2").once("value").then(function(snapshot) {
-        var name = $(".username").val();
-        var message = $(".message-input").val().toUpperCase();
+        var name = $(".username").val().toUpperCase();
+        var message = $(".message-input").val();
 
         firebase.database().ref("users/player2").child("message").set(name + ": " +message);
 
