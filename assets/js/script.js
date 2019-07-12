@@ -3,7 +3,7 @@ var firebaseConfig = {
     apiKey: "AIzaSyC0kpxe63TnL4vvgCNno30pJ_W6wLn3FB0",
     authDomain: "rock-paper-scissors-challange.firebaseapp.com",
     databaseURL: "https://rock-paper-scissors-challange.firebaseio.com",
-    projectId: "rock-paper-scissors-challange",
+    projectId: "rock-paper-scissors-challenge",
     storageBucket: "",
     messagingSenderId: "81088028553",
     appId: "1:81088028553:web:48b026bd42e15df5"
@@ -174,7 +174,7 @@ var whoLeft ="";
  $(".battleStart").on('click',function(event){
     
     resetSelection();
-    setInterval(updateData, 2000);
+    setInterval(updateData, 100);
 
   });
 
@@ -271,7 +271,7 @@ function parseDB(playerID){
 
 function resetSelection(){
     firebase.database().ref("users").once("value").then(function(snapshot) {
-   $(".battletitle").text("select rock, paper, scissor");
+   $(".battletitle").text("Select rock, paper, scissors");
         if ($(".username").val()===snapshot.child("player1/username").val()){
 
 
@@ -304,12 +304,12 @@ event.preventDefault();
 
 if ($(".username").val() === $("#player1").text()){
   firebase.database().ref("users/player1").once("value").then(function(snapshot) {
-        var name = $(".username").val();
+        var name = $(".username").val().toUpperCase();
         var message = $(".message-input").val();
-        firebase.database().ref("users/player1").child("message").set(name+" " +message);
+        firebase.database().ref("users/player1").child("message").set(name+": " +message);
 
         var messagePar = $("<p>");
-        messagePar.html(name+ " " +message);
+        messagePar.html(name+ ": " +message);
         $(".container-chat").append(messagePar);
   });
 
@@ -318,12 +318,12 @@ if ($(".username").val() === $("#player1").text()){
 if ($(".username").val() === $("#player2").text()){
   firebase.database().ref("users/player2").once("value").then(function(snapshot) {
         var name = $(".username").val();
-        var message = $(".message-input").val();
+        var message = $(".message-input").val().toUpperCase();
 
-        firebase.database().ref("users/player2").child("message").set(name + " " +message);
+        firebase.database().ref("users/player2").child("message").set(name + ": " +message);
 
         var messagePar = $("<p>");
-        messagePar.html(name+ " " +message);
+        messagePar.html(name+ ": " +message);
         $(".container-chat").append(messagePar);
   });
 
@@ -331,6 +331,7 @@ if ($(".username").val() === $("#player2").text()){
 }
 
 });
+
 if (whoLeft!==""){
   firebase.database().ref("users/player2").once("value").then(function(snapshot) {
     var message = snapshot.child(whoLeft + "/username").val()+"player has left";
@@ -365,4 +366,4 @@ function readMessageFromDB(){
 
 }
 
-setInterval(readMessageFromDB,1000);
+setInterval(readMessageFromDB,100);
