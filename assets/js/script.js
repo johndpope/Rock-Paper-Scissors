@@ -11,7 +11,7 @@ var firebaseConfig = {
 
 
    var count=0;
-
+var whoLeft ="";
    var user1Selection="";
    var user2Selection="";
 
@@ -19,7 +19,13 @@ var firebaseConfig = {
 
 
   var database = firebase.database();
-
+  $( document ).ready(function (){
+    firebase.database().ref("users").once("value").then(function(snapshot) {
+      if (snapshot.numChildren()>2){
+        $(".game-zone").text("GAME ROOM IS CURRENTLY OCCUPIED");
+      }
+    });
+  });
   function writeUserData(userId, name) {
     database.ref('users/' + userId).set({
       username: name,
@@ -27,12 +33,13 @@ var firebaseConfig = {
       losses:0,
       choice:"",
       played:0,
-      updated:false
+      updated:false,
+      message: "",
+     
     });
   }
 
 
-   
  parseDB("player"+count);
 
  var timer= setInterval(updateData, 100);
@@ -185,6 +192,7 @@ var firebaseConfig = {
      if(count<=2){
           if( name !==''){
             writeUserData("player"+count,name);
+            $("body").attr("id","playerWindowID"+count);
             $("#startButton").prop("disabled",true);
             $(".username").prop("disabled",true);
 
@@ -198,7 +206,9 @@ var firebaseConfig = {
   
 if (sessionStorage.getItem("is_reloaded")) {
     //alert ("reloaded");
-    firebase.database().ref("users").remove();
+    var playerWindowID = $("body").attr("id");
+    firebase.database().ref("users"+playerWindowID).remove();
+    //firebase.database().ref("users").remove();
 }
 
 sessionStorage.setItem("is_reloaded", true);
@@ -283,5 +293,70 @@ function resetSelection(){
 }
 
 window.onbeforeunload = function () {
-    firebase.database().ref("users").remove();
+    var playerWindowID = $("body").attr("id");
+    var lastNumber = playerWindowID.substr(playerWindowID.length -1);
+    firebase.database().ref("users/player"+lastNumber).remove();
+    whoLeft = playerWindowID;
 };
+
+$("#send").on("click",function(event){
+event.preventDefault();
+
+if ($(".username").val() === $("#player1").text()){
+  firebase.database().ref("users/player1").once("value").then(function(snapshot) {
+        var name = $(".username").val();
+        var message = $(".message-input").val();
+        firebase.database().ref("users/player1").child("message").set(name+" " +message);
+
+        var messagePar = $("<p>");
+        messagePar.html(name+ " " +message);
+        $(".container-chat").append(messagePar);
+  });
+
+}
+
+if ($(".username").val() === $("#player2").text()){
+  firebase.database().ref("users/player2").once("value").then(function(snapshot) {
+        var name = $(".username").val();
+        var message = $(".message-input").val();
+
+        firebase.database().ref("users/player2").child("message").set(name + " " +message);
+
+        var messagePar = $("<p>");
+        messagePar.html(name+ " " +message);
+        $(".container-chat").append(messagePar);
+  });
+
+
+}
+
+});
+if (whoLeft!==""){
+  firebase.database().ref("users/player2").once("value").then(function(snapshot) {
+    var message = snapshot.child(whoLeft + "/username").val()+"player has left";
+    var messagePar = $("<p>").text(message);
+    $(".container-chat").append(messagePar);
+  });
+}
+
+
+function readMessageFromDB(){
+  firebase.database().ref("users").once("value").then(function(snapshot) {
+    count = snapshot.numChildren();
+
+    for(let i=1;i<=count;i++){
+      if($(".username").val() !== snapshot.child("player"+i+"/username").val()){
+        var message = snapshot.child("player"+i+"/message").val();
+        var messagePar = $("<p>").text(message);
+        if($( "div span:last-child" )!== message){
+        $(".container-chat").append(messagePar);
+        }
+
+      }
+
+    }
+  });
+
+}
+
+setInterval(readMessageFromDB,1000);
