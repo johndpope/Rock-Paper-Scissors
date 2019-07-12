@@ -123,3 +123,11 @@ button{
   color:rgb(37, 117, 167);
   font-weight: bold;
 }
+
+.icons-player1{
+  visibility: hidden;
+}
+
+.icons-player2{
+  visibility: hidden;
+}

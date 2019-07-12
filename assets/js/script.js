@@ -79,7 +79,9 @@ function updateData(){
           else if(user1SelectionDatabase!==user2SelectionDatabase){
 
               if(user1SelectionDatabase==='paper' && user2SelectionDatabase==="scissors"){
-                  $(".battletitle").text(user2Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!"+"</p>");
+               // resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user1LossesDatabase++;
                       user2WinsDatabase++
@@ -92,7 +94,10 @@ function updateData(){
                   }
 
               else if(user1SelectionDatabase==='paper' && user2SelectionDatabase==="rock"){
-                  $(".battletitle").text(user1Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!"+"</p>");
+               
+               // resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user2LossesDatabase++;
                       user1WinsDatabase++
@@ -105,7 +110,11 @@ function updateData(){
                   }
 
               else if(user1SelectionDatabase==='rock' && user2SelectionDatabase==="paper"){
-                  $(".battletitle").text(user2Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!"+"</p>");
+               
+                 // resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
+            
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user1LossesDatabase++;
                       user2WinsDatabase++
@@ -118,7 +127,11 @@ function updateData(){
                   }
 
               else if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="paper"){
-                  $(".battletitle").text(user1Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!"+"</p>");
+               
+                  //resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
+          
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user1WinsDatabase++;
                       user2LossesDatabase++
@@ -130,7 +143,11 @@ function updateData(){
                     clearInterval(timer);
                   }
               else if(user1SelectionDatabase==='scissors' && user2SelectionDatabase==="rock"){
-                  $(".battletitle").text(user2Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!"+"</p>");
+               
+                  //resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user2Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
+                 
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user1LossesDatabase++;
                       user2WinsDatabase++
@@ -142,7 +159,11 @@ function updateData(){
                     clearInterval(timer);
                   }
               else if(user1SelectionDatabase==='rock' && user2SelectionDatabase==="scissors"){
-                  $(".battletitle").text(user1Name+ " wins!!");
+                var resultsAnnounc = $("<p>"+user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!"+"</p>");
+               
+                  //resultsAnnounc.text(user1Name+ " selected "+user1SelectionDatabase+ " and " + user2Name + " selected "+ user2SelectionDatabase+ "----" + user1Name + " wins!");
+                  $(".battletitle").html(resultsAnnounc);
+       
                   if(snapshot.child("player1/updated").val()===false || snapshot.child("player2/updated").val()===false){
                       user1WinsDatabase++;
                       user2LossesDatabase++
@@ -186,7 +207,7 @@ function updateData(){
             $("body").attr("id","playerWindowID"+count);
             $("#startButton").prop("disabled",true);
             $(".username").prop("disabled",true);
-
+       
       }
 
     }
@@ -214,6 +235,9 @@ function parseDB(playerID){
         $("#"+playerID).text(uname);
         $(".wins"+playerID).text(wins);
         $(".losses"+playerID).text(losses);
+       if( $(".username").val() === $("#"+playerID).text()){
+         $(".icons-"+playerID).css("visibility","visible");
+       }
         
       }); 
   }
@@ -233,6 +257,7 @@ function parseDB(playerID){
         user1Selection = fired_button;
    
         firebase.database().ref("users/player1").child("choice").set(user1Selection);
+        $(".battletitle").text("You've selected "+ fired_button);
       }
     }
   });
@@ -249,13 +274,14 @@ $(document).on("click",".button2",function() {
       user2Selection = fired_button;
 
       firebase.database().ref("users/player2").child("choice").set(user2Selection);
+      $(".battletitle").text("You've selected "+ fired_button);
     }
   }
 });
 
 function resetSelection(){
     firebase.database().ref("users").once("value").then(function(snapshot) {
-        $(".battletitle").text("Select rock, paper, scissors");
+        $(".battletitle").html("Select rock, paper, scissors");
         if ($(".username").val()===snapshot.child("player1/username").val()){
           firebase.database().ref("users/player1/choice").set("");
           user1Selection="";
